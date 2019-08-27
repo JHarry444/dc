@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  movie-quote-service:
+    image: g00glen00b/movie-quote-service:0.0.1
+    ports:
+      - 8080:8080
+    depends_on:
+      - movie-quote-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://movie-quote-database/quotes?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=dbuser
+      - SPRING_DATASOURCE_PASSWORD=dbpass
+  movie-quote-database:
+    image: mysql:8.0.14
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=dbpass
+      - MYSQL_DATABASE=quotes
+      - MYSQL_ONETIME_PASSWORD=true
